@@ -1,32 +1,13 @@
-body {
-    background: 
-    linear-gradient( 
-    	rgba(0, 0, 0, 0.25), 
-    	rgba(0, 0, 0, 0.25)), 
-    url(../images/crystalBackground.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-}
-
-.jumbotron {
-	background: none;
+.jumbotron {	
+	margin-right: 10%;
+	margin-left: 10%;
+	font-size: 40px;
+	background-color: black;
 	color: #fff;
 }
 
-.row {
-	margin: 5px;
+.trainDataInput, .displayTrainInput {
+	margin-right: 10%;
+	margin-left: 10%;
 }
 
-#emerald {
-	margin-left: 5px;
-}
-
-.panel-default>.panel-heading {
-	border-color: black;
-}
-
-.img {
-	margin-bottom: 10px;
-}

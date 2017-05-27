@@ -3,104 +3,89 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ryan Cowles - Live Repo</title>
+    <title>Firebase Train Scheduler - Ryan Cowles</title>
+    <!-- Reset stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Bootstrap Ref -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery ref -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- Custom Styelsheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Firebase reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <!-- Link to Moment.js should go here -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
-<!-- PSUEDO CODE -->
-<!-- 
-- Create HTML layout using Bootstrap, and worry about CSS Styling later.
-- On game load, computer will load a random number for user to guess, which will auto generate between 19 - 120. 
-	- Wins and losses will both be reset/set to 0.
-- 4 images need to be created as buttons.
-- When each image is clicked, it will generate a random number, which will be hidden from the user. 
-	- Each randomly generated number from the crystal click will be between numbers 1 - 12. 
-	- Once the button is clicked, and random number generated, the number should be pushed to a string.
-	- Create a variable for the added string of numbers.
-	- The total of numbers added up are then compared to auto generated computer number.
-- If the added up numbers equal up to the computer number, then user wins, and win counter will increase by 1. If added numbers added up more than computer number, user will lose, and loser counter will increase by 1. 
--->
 
 <body>
-    <!-- Bootstrap components to create HTML -->
+<!-- Class to display app title info -->
     <div class="jumbotron text-center">
-        <h1>Crystal Collectors!</h1>
+        <h1>Arrival and Departure Train Schedule</h1>
+        <p>
+            <h3>A Firebase Driven App To Provide Train Schedule Information.</h3></p>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Game Collector Instructions</h3>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        1. You will be given a random number at the start of the game.
-                    </p>
-                    <p>
-                        2. There are four crystals below, by clicking on a crystal you will add a specific amount of points to your total score.
-                    </p>
-                    <p>
-                        3. You win the game by matching your total score to a random number, you lose the game if your total score goes above the random number.
-                    </p>
-                    <p>
-                        The value of each crystal is hiden from you until you click on it.
-                    </p>
-                    <p>
-                        Each time when the game starts, the game will change the value of each crystal, as well as the random number to guess.
-                    </p>
-                </div>
+    <!-- Div to display the information as it is changed in the firebase database -->
+    <div class="displayTrainInput">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">Current Train Schedule</div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    <h3 class="panel-title">Number To Guess</h3>
-                </div>
-                <div class="panel-body text-center">
-                    <div id="computerGuess"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    <h3 class="panel-title">Your Total Score</h3>
-                </div>
-                <div class="panel-body text-center">
-                    <div id="userGuess">0</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    <h3 class="panel-title">Score Counter</h3>
-                </div>
-                <div class="panel-body text-center">
-                    <p>
-                        Wins: <div id="wins">0</div>
-                    </p>
-                    <p>
-                        Losses: <div id="loss">0</div>
-                    </p>
-                </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Train Name</th>
+                            <th>Destination</th>
+                            <th class="text-center">Frequency (mins)</th>
+                            <th class="text-center">Next Arrival</th>
+                            <th class="text-center">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td id="displayTrainName"></td>
+                        <td id="displayTrainDestination"></td>
+                        <td class="text-center" id="displayTrainFrequency"></td>
+                        <td class="text-center" id="displayNextArrival"></td>
+                        <td class="text-center" id="displayMinsAway"></td>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <div class="col-md-6"></div>
-    <div class="col-md-6 text-center">
-    	<!-- <div class="text-center"> -->
-    	<input id="aquamarine" type="image" class="img imgButtons" src="assets/images/aquamarine.png"/>
-    	<input id="amethyst" type="image" class="img imgButtons" src="assets/images/amethyst.png"/>
-    	<input id="diamond" type="image" class="img imgButtons" src="assets/images/diamond.png"/>
-    	<input id="emerald" type="image" class="img imgButtons" src="assets/images/emerald.png"/>
-    	<!-- </div> -->
     </div>
+    <!-- Div that holds form for train input information, which will be stored in firebase -->
+    <div class="trainDataInput">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">Add Train Information</div>
+            </div>
+            <div class="panel-body">
+                <!-- Form to submit user input for train information -->
+                <form id="trainForm">
+                    <div class="form-group">
+                        <label for="searchTerm">Train Name</label>
+                        <input type="text" class="form-control" id="addTrainName">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchTerm">Destination</label>
+                        <input type="text" class="form-control" id="addTrainDestination">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchTerm">Train Time (HH:MM - military time)</label>
+                        <input type="text" class="form-control" id="addTrainTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchTerm">Frequency (mins)</label>
+                        <input type="text" class="form-control" id="addTrainFrequency">
+                    </div>
+                    <button type="button" id="addTrainBtn" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <!-- Run Javascript after all of HTML is loaded -->
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
+    <!-- Javascript to load once all of HTML has rendered -->
+    <script src="assets/js/main.js" type="text/javascript"></script>
 </body>
 
 </html>
