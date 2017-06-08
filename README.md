@@ -1,2 +1,2 @@
-# Firebase-Train-Scheduler
-A train schedule application that incorporates Firebase to host arrival and departure data. The app will retrieve and manipulate this information with Moment.js. This website will provide up-to-date information about various trains, namely their arrival times and how many minutes remain until they arrive at their station.
+# Video-Game-Knowledge-Base---Project-1
+This application would provide the user with an all on one knowledge base based upon the video game that is searched, rather than having to search the Internet for this information separately. 

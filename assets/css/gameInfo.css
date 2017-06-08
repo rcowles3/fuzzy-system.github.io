@@ -1,0 +1,33 @@
+body {
+	background:
+	linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5)
+      ),
+    url(../images/gameInfoBackground.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;;
+}
+
+#gameInfo {
+  background-color: #eeeeee
+}
+
+.media-heading {
+  background-color: #eeeeee
+}
+
+.page-header, p {
+  background-color: #eeeeee
+}
+
+.table{
+  background-color: #eeeeee;
+
+}
+
+.btn {
+  float: right;
+}
