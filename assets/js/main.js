@@ -36,7 +36,7 @@ $(document).ready(function() {
         var apikey = "4aa71062a0badcab727772a041b2d0acf478a829";
 
         // Base URL
-        var baseUrl = "http://www.giantbomb.com/api";
+        var baseUrl = "https://www.giantbomb.com/api";
 
         // Construct ajax url
         var GamesSearchUrl = baseUrl + '/search/?api_key=' + apikey + '&format=jsonp';
