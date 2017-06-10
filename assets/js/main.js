@@ -176,7 +176,7 @@ $(document).ready(function() {
                     // console.log(response.items[i]);
 
                     // loop appends videos together within the loop using ".append"
-                    $('#popVids').append("<iframe width='350' height='250' src='https://www.youtube.com/embed/" + videoId + "' frameborder='0' allowfullscreen></iframe>");
+                    $('#popVids').append("<iframe class='center-block' width='350' height='250' src='https://www.youtube.com/embed/" + videoId + "' frameborder='0' allowfullscreen></iframe>");
                 }
             })
     };
